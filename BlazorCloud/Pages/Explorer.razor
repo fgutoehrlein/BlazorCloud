@@ -1,0 +1,19 @@
+﻿@page "/explorer"
+<h3>Explorer</h3>
+
+<p>Files:</p>
+<ul>
+    @foreach (var file in Files)
+    {
+        <li>@file.FileName</li>
+    }
+</ul>
+<br />
+<p>Directories:</p>
+<ul>
+    @foreach (var directorie in Directories)
+    {
+        <li>@directorie.DirectoryName</li>
+    }
+</ul>
+

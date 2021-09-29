@@ -26,4 +26,8 @@
     <ProjectReference Include="..\BlazorCloudCore\BlazorCloudCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Files\TestFolder\" />
+  </ItemGroup>
+
 </Project>

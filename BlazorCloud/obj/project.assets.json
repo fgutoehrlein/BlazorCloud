@@ -9711,23 +9711,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Felix\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\FGUTOEH\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Felix\\source\\repos\\BlazorCloud\\BlazorCloud\\BlazorCloud.csproj",
+      "projectUniqueName": "C:\\Dev\\BlazorCloud\\BlazorCloud\\BlazorCloud.csproj",
       "projectName": "BlazorCloud",
-      "projectPath": "C:\\Users\\Felix\\source\\repos\\BlazorCloud\\BlazorCloud\\BlazorCloud.csproj",
-      "packagesPath": "C:\\Users\\Felix\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Felix\\source\\repos\\BlazorCloud\\BlazorCloud\\obj\\",
+      "projectPath": "C:\\Dev\\BlazorCloud\\BlazorCloud\\BlazorCloud.csproj",
+      "packagesPath": "C:\\Users\\FGUTOEH\\.nuget\\packages\\",
+      "outputPath": "C:\\Dev\\BlazorCloud\\BlazorCloud\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Felix\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\FGUTOEH\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9735,14 +9731,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "https://api.nuget.org/v3/index.json": {}
+        "https://api.nuget.org/v3/index.json": {},
+        "https://azureplatform.pkgs.visualstudio.com/1f1cb3ea-ee3a-4730-abe9-8845484c3bb4/_packaging/DevelopmentFeed/nuget/v3/index.json\n<https://teams.microsoft.com/l/message/19:36fb44404e8d4e0eaae2fa735e4ac009@thread.tacv2/1631626449216?tenantId=9652d7c2-1ccf-4940-8151-4a92bd474ed0&amp;groupId=cdcc7b10-10f5-4a50-8695-5567f5abc30f&amp;parentMessageId=1631616982940&amp;teamName=DWT_CADP&amp;channelName=Video-Sessions&amp;createdTime=1631626449216": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\Felix\\source\\repos\\BlazorCloud\\BlazorCloudCore\\BlazorCloudCore.csproj": {
-              "projectPath": "C:\\Users\\Felix\\source\\repos\\BlazorCloud\\BlazorCloudCore\\BlazorCloudCore.csproj"
+            "C:\\Dev\\BlazorCloud\\BlazorCloudCore\\BlazorCloudCore.csproj": {
+              "projectPath": "C:\\Dev\\BlazorCloud\\BlazorCloudCore\\BlazorCloudCore.csproj"
             }
           }
         }
@@ -9822,7 +9819,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }
