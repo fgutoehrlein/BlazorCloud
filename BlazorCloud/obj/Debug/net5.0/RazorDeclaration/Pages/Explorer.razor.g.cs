@@ -75,6 +75,13 @@ using BlazorCloud.Shared;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 10 "C:\Dev\BlazorCloud\BlazorCloud\_Imports.razor"
+using MudBlazor;
+
+#line default
+#line hidden
+#nullable disable
     [Microsoft.AspNetCore.Components.RouteAttribute("/explorer")]
     public partial class Explorer : Microsoft.AspNetCore.Components.ComponentBase
     {
@@ -83,6 +90,7 @@ using BlazorCloud.Shared;
         {
         }
         #pragma warning restore 1998
+        [global::Microsoft.AspNetCore.Components.InjectAttribute] private IDialogService DialogService { get; set; }
     }
 }
 #pragma warning restore 1591

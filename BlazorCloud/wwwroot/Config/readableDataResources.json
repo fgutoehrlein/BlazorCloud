@@ -1,0 +1,3 @@
+{
+  "DataSuffix": [ "txt","md", "json", "xml","yml","csproj","sln", "cs", "cpp", "c" ]
+}

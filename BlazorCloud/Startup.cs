@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MudBlazor.Services;
 
 namespace BlazorCloud
 {
@@ -33,14 +34,10 @@ namespace BlazorCloud
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //using (ISqliteSetup sqliteSetup = new SqliteSetup())
-            //{
-            //    var dbName = sqliteSetup.GetDatabaseNameFromConnectionString(Configuration.GetConnectionString("DefaultConnection"));
-            //    sqliteSetup.CreateDatabaseIfNonExistant(dbName);
-            //}
-            //services.AddDbContext<ApplicationDataDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMudServices();
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<Areas.Identity.Data.BlazorCloudUser>>();
             services.AddSingleton<WeatherForecastService>();
         }
@@ -49,10 +46,13 @@ namespace BlazorCloud
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             WwwRootPath = env.WebRootPath;
+            _=ConfigContainer.Instance;
+            _=SuffixContainer.Instance;
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {

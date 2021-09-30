@@ -1,0 +1,37 @@
+﻿@inject IDialogService DialogService
+
+<MudDialog>    
+    <DialogContent>
+        <MudText>@ConvertedMarkdown</MudText>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Close</MudButton>
+        @if (Buttons != null)
+        {
+            @foreach (var button in Buttons)
+            {
+                <MudButton Color="@Color" Variant="Variant.Filled" OnClick="@button.Value">@button.Key</MudButton>
+            }
+        }
+    </DialogActions>
+</MudDialog>
+
+@code {
+    public MarkupString ConvertedMarkdown { get; set; }
+
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter] public Dictionary<string,EventCallback> Buttons { get; set; }
+
+    [Parameter] public string ContentText { get; set; }
+
+    [Parameter] public Color Color { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        ConvertedMarkdown = (MarkupString)ContentText; // or new MarkupString(html)
+    }
+
+    void Cancel() => MudDialog.Cancel();
+    }
+

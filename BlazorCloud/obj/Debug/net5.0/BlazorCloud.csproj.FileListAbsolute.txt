@@ -506,3 +506,13 @@ C:\Dev\BlazorCloud\BlazorCloud\obj\Debug\net5.0\BlazorCloud.csproj.CopyComplete
 C:\Dev\BlazorCloud\BlazorCloud\obj\Debug\net5.0\BlazorCloud.genruntimeconfig.cache
 C:\Dev\BlazorCloud\BlazorCloud\obj\Debug\net5.0\RazorDeclaration\Pages\Explorer.razor.g.cs
 C:\Dev\BlazorCloud\BlazorCloud\obj\Debug\net5.0\Razor\Pages\Explorer.razor.g.cs
+C:\Dev\BlazorCloud\BlazorCloud\bin\Debug\net5.0\Microsoft.AspNetCore.Authorization.dll
+C:\Dev\BlazorCloud\BlazorCloud\bin\Debug\net5.0\Microsoft.AspNetCore.Components.dll
+C:\Dev\BlazorCloud\BlazorCloud\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Forms.dll
+C:\Dev\BlazorCloud\BlazorCloud\bin\Debug\net5.0\Microsoft.AspNetCore.Components.Web.dll
+C:\Dev\BlazorCloud\BlazorCloud\bin\Debug\net5.0\Microsoft.AspNetCore.Metadata.dll
+C:\Dev\BlazorCloud\BlazorCloud\bin\Debug\net5.0\Microsoft.JSInterop.dll
+C:\Dev\BlazorCloud\BlazorCloud\bin\Debug\net5.0\MudBlazor.dll
+C:\Dev\BlazorCloud\BlazorCloud\bin\Debug\net5.0\System.IO.Pipelines.dll
+C:\Dev\BlazorCloud\BlazorCloud\obj\Debug\net5.0\RazorDeclaration\Shared\ModalDialog.razor.g.cs
+C:\Dev\BlazorCloud\BlazorCloud\obj\Debug\net5.0\Razor\Shared\ModalDialog.razor.g.cs

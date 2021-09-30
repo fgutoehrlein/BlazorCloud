@@ -19,6 +19,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="MudBlazor" Version="5.1.5" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.115" />
   </ItemGroup>
 

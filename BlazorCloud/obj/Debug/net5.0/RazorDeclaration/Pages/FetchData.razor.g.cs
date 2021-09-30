@@ -76,6 +76,13 @@ using BlazorCloud.Shared;
 #line hidden
 #nullable disable
 #nullable restore
+#line 10 "C:\Dev\BlazorCloud\BlazorCloud\_Imports.razor"
+using MudBlazor;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 3 "C:\Dev\BlazorCloud\BlazorCloud\Pages\FetchData.razor"
 using BlazorCloud.Data;
 
