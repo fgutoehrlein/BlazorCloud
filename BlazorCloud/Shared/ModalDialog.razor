@@ -29,7 +29,8 @@
 
     protected override void OnParametersSet()
     {
-        ConvertedMarkdown = (MarkupString)ContentText; // or new MarkupString(html)
+        //Convert string to Html format string
+        ConvertedMarkdown = (MarkupString)ContentText;
     }
 
     void Cancel() => MudDialog.Cancel();

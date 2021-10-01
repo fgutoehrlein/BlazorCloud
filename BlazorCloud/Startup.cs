@@ -17,6 +17,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MudBlazor.Services;
+using BlazorCloudCore.Models.Events;
+using BlazorCloudCore.Logic.Services;
 
 namespace BlazorCloud
 {
@@ -38,15 +40,18 @@ namespace BlazorCloud
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<Areas.Identity.Data.BlazorCloudUser>>();
             services.AddSingleton<WeatherForecastService>();
+            services.AddSingleton<UserActivityChannelService>();
+            services.AddSingleton<UserSessionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             WwwRootPath = env.WebRootPath;
-            _=ConfigContainer.Instance;
+            _=PathManager.Instance;
             _=SuffixContainer.Instance;
 
             if (env.IsDevelopment())

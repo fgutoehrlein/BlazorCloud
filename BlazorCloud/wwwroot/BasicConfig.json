@@ -3,5 +3,6 @@
   "FilePath": "Files/",
   "UseBasePath": true,
   "CustomBasePath": null,
-  "ReadableDataResourcesFile": "readableDataResources.json"
+  "ReadableDataResourcesFile": "readableDataResources.json",
+  "IconResources": "/Resources/Icons"
 }

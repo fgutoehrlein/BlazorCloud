@@ -1,9 +1,16 @@
 ﻿@page "/explorer"
-@inject IDialogService DialogService 
+@inject IDialogService DialogService
 
 
 <h3>Explorer</h3>
-
+<InputFile id="fileInput" OnChange="UploadFiles" hidden multiple />
+<MudButton HtmlTag="label"
+           Variant="Variant.Filled"
+           Color="Color.Primary"
+           StartIcon="@Icons.Filled.CloudUpload"
+           for="fileInput">
+    Upload Files
+</MudButton>
 <p>Files:</p>
 <ul>
     @foreach (var file in Files)
