@@ -17,7 +17,8 @@ namespace BlazorCloud
         public static void Main(string[] args)
         {
             var builder = CreateHostBuilder(args);
-            builder.Build().Run();
+            var app = builder.Build();
+            app.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

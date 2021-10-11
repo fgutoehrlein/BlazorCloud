@@ -1,4 +1,5 @@
 ﻿@page "/explorer"
+@using BlazorCloud.Shared 
 @inject IDialogService DialogService
 
 
@@ -11,18 +12,18 @@
            for="fileInput">
     Upload Files
 </MudButton>
-<p>Files:</p>
-<ul>
-    @foreach (var file in Files)
-    {
-        <li @onclick="()=>OpenFileModal(file)"><a>@file.FileName</a></li>
-    }
-</ul>
 <br />
-<p>Directories:</p>
-<ul>
-    @foreach (var directorie in Directories)
-    {
-        <li>@directorie.DirectoryName</li>
-    }
-</ul>
+<br />
+<br />
+<MudGrid>
+    <MudItem xs="12">
+        <MudGrid>
+            <MudItem>
+                <DirectoryDisplay FullBaseDirectoryPath="@BlazorCloud.Data.PathManager.Instance.GetFullFilePath()"></DirectoryDisplay>
+            </MudItem>
+            <MudItem>
+                <FileDisplay></FileDisplay>
+            </MudItem>
+        </MudGrid>
+    </MudItem>
+</MudGrid>

@@ -1,0 +1,103 @@
+﻿@using BlazorCloudCore.Models;
+@using MudBlazor;
+@using Microsoft.AspNetCore.Components;
+@using BlazorCloud.Shared;
+@using BlazorCloud.Data;
+@using Microsoft.AspNetCore.Components.Forms;
+@using BlazorCloudCore.Logic.Services;
+@using Microsoft.AspNetCore.Identity;
+@using System.IO;
+
+@inject IDialogService DialogService
+@inject IJSRuntime JS
+@inject FileAndDirectoryService _fileAndDirectoryService
+@inject UserSessionService _userSessionService
+@if (FileList != null && FileList.Any())
+{
+    @foreach (var file in FileList)
+    {
+        <MudCard @onclick="()=>OpenFileModal(file)" style="cursor: pointer">
+            <MudCardContent>
+                <MudText>@file.FileName</MudText>
+                <MudText Typo="Typo.body2"><MudIcon Icon=""></MudIcon></MudText>
+            </MudCardContent>
+        </MudCard>
+        <br />
+    }
+}
+
+
+@code {
+    [Parameter] public List<FileBase> FileList { get; set; }
+
+    [Parameter] public DirectoryBase BaseDirectory { get; set; }
+
+    [Parameter] public string FullBaseDirectoryPath { get; set; }
+
+    [CascadingParameter] public string CurrentDirectoryPath { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        _userSessionService.changeEvent += async (o, args) =>
+        {
+            if (args.DirectoryPath != FullBaseDirectoryPath)
+            {
+                FullBaseDirectoryPath = args.DirectoryPath;
+                FileList = await _fileAndDirectoryService.GetListOfFilesFromPathAsync(FullBaseDirectoryPath);
+                StateHasChanged();
+            }
+        };
+        FileList = new List<FileBase>();
+        if (FullBaseDirectoryPath == null)
+        {
+            FullBaseDirectoryPath = PathManager.Instance.GetFullFilePath();
+        }
+        FileList = await _fileAndDirectoryService.GetListOfFilesFromPathAsync(FullBaseDirectoryPath);
+    }
+
+    /// <summary>
+    /// Generates the required parameters for the modal to manage and view and opens it up.
+    /// </summary>
+    /// <param name="file"></param>
+    public void OpenFileModal(FileBase file)
+    {
+        var fileSuffix = file.FileName.Split(".").LastOrDefault();
+
+        //Create EventCallback (function pointer) for the download function;
+        var download = EventCallback.Factory.Create(this, (Action)(async () => await Download(file)));
+
+        //This Dictionary is used to store the name of the Button and its Functionality and pass that down to the Button
+        var Buttons = new Dictionary<string, EventCallback>();
+        Buttons.Add("Download", download);
+
+        var parameters = new DialogParameters();
+        if (SuffixContainer.Instance.GetSuffixList().Contains(fileSuffix))
+        {
+            var text = File.ReadAllText(Path.Combine(file.FilePath, file.FileName));
+            using (var stringFormatter = new BlazorCloudCore.Logic.String.StringFormater())
+            {
+                var htmlText = stringFormatter.ConvertFormattedStringToHtml(text);
+                parameters.Add("ContentText", htmlText);
+            }
+        }
+        else
+        {
+            parameters.Add("ContentText", "File: " + file.FileName);
+        }
+
+        parameters.Add("Buttons", Buttons);
+
+        DialogService.Show<ModalDialog>(file.FileName, parameters);
+    }
+
+    /// <summary>
+    /// Invokes Javascript to download the given file
+    /// </summary>
+    /// <param name="file"></param>
+    /// <returns></returns>
+    public async Task Download(FileBase file)
+    {
+        byte[] data = System.IO.File.ReadAllBytes(Path.Combine(file.FilePath, file.FileName));
+        await JS.InvokeAsync<object>("saveAsFile", file.FileName, Convert.ToBase64String(data));
+    }
+}

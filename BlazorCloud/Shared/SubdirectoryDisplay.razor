@@ -1,0 +1,60 @@
+﻿@using BlazorCloudCore.Models
+@using BlazorCloudCore.Logic.Services
+@using System.IO
+
+@inject FileAndDirectoryService _fileAndDirectoryService
+@inject UserSessionService _userSessionService
+
+@foreach (var directory in DirectoryList)
+{
+
+
+    @if (directory.ShowSubdirectories)
+    {
+        <MudTreeViewItem Value="@(directory.DirectoryName)" @onclick="()=>ToggleSubdirectoriesComponent(directory)" @bind-Expanded="directory.ShowSubdirectories">
+            <SubdirectoryDisplay></SubdirectoryDisplay>
+        </MudTreeViewItem>
+    }
+    else
+    {
+        <MudTreeViewItem Value="@(directory.DirectoryName)" @onclick="()=>ToggleSubdirectoriesComponent(directory)" />
+    }
+}
+@code {
+    [Parameter] public DirectoryBase BaseDirectory { get; set; }
+
+    public List<DirectoryBase> DirectoryList { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        DirectoryList = new List<DirectoryBase>();
+        DirectoryList = await _fileAndDirectoryService.GetListOfDirectoriesFromPathAsync(_userSessionService.GetCurrentPath());
+    }
+    [Parameter]
+    public EventCallback<MouseEventArgs> onclick { get; set; }
+
+    void OnClick(MouseEventArgs args)
+    {
+        onclick.InvokeAsync();
+    }
+
+    /// <summary>
+    /// Toggles the display of subdirectories
+    /// </summary>
+    /// <param name="directory"></param>
+    public void ToggleSubdirectoriesComponent(DirectoryBase directory)
+    {
+        //Trigger PathChangedEvent
+        _userSessionService.currentEventArgs.DirectoryPath = Path.Combine(directory.DirectoryPath, directory.DirectoryName);
+        _userSessionService.Invoke();
+
+        if (directory.ShowSubdirectories)
+        {
+            directory.ShowSubdirectories = false;
+        }
+        else
+        {
+            directory.ShowSubdirectories = true;
+        }
+    }
+}

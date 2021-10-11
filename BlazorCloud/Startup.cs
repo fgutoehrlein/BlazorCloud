@@ -42,9 +42,12 @@ namespace BlazorCloud
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<Areas.Identity.Data.BlazorCloudUser>>();
+
             services.AddSingleton<WeatherForecastService>();
             services.AddSingleton<UserActivityChannelService>();
-            services.AddSingleton<UserSessionService>();
+            services.AddSingleton<FileAndDirectoryService>();
+
+            services.AddScoped<UserSessionService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

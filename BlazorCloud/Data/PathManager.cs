@@ -52,7 +52,7 @@ namespace BlazorCloud.Data
             }
             else
             {
-                return Path.Combine(Instance.Paths.CustomBasePath, Instance.Paths.FilePath);
+                return Path.Combine(Instance.Paths.CustomBasePath);
             }
         }
         public string GetFullConfigPath()
