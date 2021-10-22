@@ -1,0 +1,36 @@
+﻿@page "/configuration"
+@using BlazorCloud.Data
+@using Newtonsoft.Json
+@using System.IO
+
+<h3>Configuration</h3>
+
+<MudTextField @bind-Value="BasePath" placeholder="@PathManager.Instance.GetFullFilePath()" />
+<br />
+<MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="SaveBaseUrlAsync">Save Base Url</MudButton>
+
+@code {
+    //Configuration of Base directory path
+    public string BasePath { get; set; }
+
+    public async Task SaveBaseUrlAsync()
+    {
+        try
+        {
+            if (!BasePath.EndsWith("\\") & BasePath.EndsWith("/"))
+            {
+                BasePath = BasePath + "/";
+            }
+
+            var path = Path.GetFullPath(BasePath);
+            var pathsContainer = PathManager.Instance.GetPathsInstance();
+            pathsContainer.CustomBasePath = path;
+            await PathManager.Instance.SaveChangesToJson(pathsContainer);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
+}

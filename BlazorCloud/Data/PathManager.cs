@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using BlazorCloudCore.Models;
+using System.Text;
 
 namespace BlazorCloud.Data
 {
@@ -11,18 +13,14 @@ namespace BlazorCloud.Data
     {
         private static PathManager instance = null;
         private static readonly object padlock = new object();
-        private BlazorCloudCore.Models.PathContainerBase Paths { get; set; }
+        private PathContainerBase Paths { get; set; }
 
         PathManager()
         {
-            Paths = JsonConvert.DeserializeObject<BlazorCloudCore.Models.PathContainerBase>(File.ReadAllText(Path.Combine(Startup.WwwRootPath,"BasicConfig.json")));
+            Paths = JsonConvert.DeserializeObject<PathContainerBase>(File.ReadAllText(Path.Combine(Startup.WwwRootPath, "BasicConfig.json")));
             if (Paths.UseBasePath)
             {
                 Paths.BasePath = Startup.WwwRootPath;
-            }
-            else
-            {
-                Paths.BasePath = Paths.CustomBasePath;
             }
         }
 
@@ -34,7 +32,7 @@ namespace BlazorCloud.Data
                 {
                     if (instance == null)
                     {
-                        instance = new PathManager();
+                        instance = new PathManager(); 
                     }
                     return instance;
                 }
@@ -65,6 +63,16 @@ namespace BlazorCloud.Data
             {
                 return Path.Combine(Instance.Paths.CustomBasePath, Instance.Paths.ConfigPath);
             }
+        }
+        public async Task SaveChangesToJson(PathContainerBase pathContainer)
+        {
+            var pathContainerJson = JsonConvert.SerializeObject(pathContainer);
+
+            await File.WriteAllTextAsync(Path.Combine(Startup.WwwRootPath, Paths.ConfigFileName),pathContainerJson);
+        }
+        public PathContainerBase GetPathsInstance()
+        {
+            return Paths;
         }
     }
 }

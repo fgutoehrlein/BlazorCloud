@@ -1,8 +1,10 @@
 {
   "ConfigPath": "Config/",
+  "ConfigFileName": "BasicConfig.json",
   "FilePath": "Files/",
-  "UseBasePath": true,
-  "CustomBasePath": null,
+  "UseBasePath": false,
+  "CustomBasePath": "C:\\Dev\\Azure Platform Core",
   "ReadableDataResourcesFile": "readableDataResources.json",
-  "IconResources": "/Resources/Icons"
+  "IconResources": "/Resources/Icons",
+  "BasePath": "C:\\Projects\\Repos"
 }

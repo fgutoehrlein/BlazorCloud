@@ -27,5 +27,23 @@ namespace BlazorCloudCore.Logic.String
             sb.Replace("\n", "<br/>");
             return sb.ToString();
         }
+        public string ConvertWindowsPathToUnix(string path)
+        {
+            if (path.Contains("\\\\"))
+            {
+                path = path.Replace("\\\\","/");
+                return path;
+            }
+            else if (path.Contains("\\"))
+            {
+                path = path.Replace("\\","/");
+                return path;
+            }
+            else
+            {
+                throw new NullReferenceException();
+            }
+            
+        }
     }
 }

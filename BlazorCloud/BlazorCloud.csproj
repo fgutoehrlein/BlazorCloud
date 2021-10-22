@@ -30,6 +30,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\Files\TestFolder2\Sub_TestFolder2_1\" />
     <Folder Include="wwwroot\Files\TestFolder3\" />
+    <Folder Include="wwwroot\PersonalDictionaries\" />
   </ItemGroup>
 
 </Project>

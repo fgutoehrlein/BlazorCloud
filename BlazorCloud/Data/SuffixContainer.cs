@@ -16,7 +16,7 @@ namespace BlazorCloud.Data
         SuffixContainer()
         {
             var config = PathManager.Instance.GetConfigBase();
-            var suffixFilePath = Path.Combine(config.BasePath, config.ConfigPath, config.ReadableDataResourcesFile);
+            var suffixFilePath = Path.Combine(Startup.WwwRootPath, config.ConfigPath, config.ReadableDataResourcesFile);
             SuffixList = JsonConvert.DeserializeObject<BlazorCloudCore.Models.DataSuffixBase>(File.ReadAllText(suffixFilePath)).DataSuffix;
         }
 

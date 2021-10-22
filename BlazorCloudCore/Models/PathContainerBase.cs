@@ -8,6 +8,7 @@ namespace BlazorCloudCore.Models
     public class PathContainerBase
     {
         public string ConfigPath { get; set; }
+        public string ConfigFileName { get; set; }
         public string FilePath { get; set; }
         public bool UseBasePath { get; set; }
         public string CustomBasePath { get; set; }
