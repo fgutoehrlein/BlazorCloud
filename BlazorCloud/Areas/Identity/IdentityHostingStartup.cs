@@ -2,6 +2,7 @@
 using BlazorCloud.Areas.Identity.Data;
 using BlazorCloud.Data;
 using BlazorCloudCore.Logic.SQLite;
+using BlazorCloud.Areas.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -34,6 +35,8 @@ namespace BlazorCloud.Areas.Identity
                 });
                 services.AddDefaultIdentity<BlazorCloudUser>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<BlazorCloudContext>();
+
+                services.AddSingleton<IBasicAuthorization,BasicAuthorization>();
             });
         }
     }

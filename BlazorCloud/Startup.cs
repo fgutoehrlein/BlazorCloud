@@ -48,6 +48,7 @@ namespace BlazorCloud
             services.AddSingleton<FileAndDirectoryService>();
 
             services.AddScoped<UserSessionService>();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -76,6 +77,9 @@ namespace BlazorCloud
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseEndpoints(endpoints =>
             {
