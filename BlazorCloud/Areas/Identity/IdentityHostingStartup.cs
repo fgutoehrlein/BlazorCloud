@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 [assembly: HostingStartup(typeof(BlazorCloud.Areas.Identity.IdentityHostingStartup))]
 namespace BlazorCloud.Areas.Identity
@@ -35,8 +36,7 @@ namespace BlazorCloud.Areas.Identity
                 });
                 services.AddDefaultIdentity<BlazorCloudUser>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<BlazorCloudContext>();
-
-                services.AddSingleton<IBasicAuthorization,BasicAuthorization>();
+                services.TryAddScoped<IBasicAuthorization, BasicAuthorization>();
             });
         }
     }

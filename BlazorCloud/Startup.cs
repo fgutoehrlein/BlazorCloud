@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 using MudBlazor.Services;
 using BlazorCloudCore.Models.Events;
 using BlazorCloudCore.Logic.Services;
+using BlazorCloud.Areas.Authorization;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace BlazorCloud
 {
@@ -41,13 +43,12 @@ namespace BlazorCloud
             services.AddServerSideBlazor();
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<Areas.Identity.Data.BlazorCloudUser>>();
+            services.TryAddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<Areas.Identity.Data.BlazorCloudUser>>();
 
-            services.AddSingleton<WeatherForecastService>();
-            services.AddSingleton<UserActivityChannelService>();
+            services.TryAddSingleton<UserActivityChannelService>();
             services.AddSingleton<FileAndDirectoryService>();
 
-            services.AddScoped<UserSessionService>();
+            services.TryAddScoped<UserSessionService>();
             services.AddSwaggerGen();
         }
 
