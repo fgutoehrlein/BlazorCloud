@@ -19,14 +19,17 @@ namespace BlazorCloud.Controller
     [ApiController]
     public class DataController : ControllerBase
     {
-        public DataController(FileAndDirectoryService fileAndDirectoryService, BasicAuthorization basicAuthorization)
+        public DataController(FileAndDirectoryService fileAndDirectoryService, UserManager<BlazorCloudUser> userManager)
         {
             _fileAndDirectoryService = fileAndDirectoryService;
-            _basicAuthorization = basicAuthorization;
+            _userManager = userManager;
+            BasicAuthorization = new BasicAuthorization(userManager);
         }
         public FileAndDirectoryService _fileAndDirectoryService { get; set; }
 
-        private BasicAuthorization _basicAuthorization;
+        private BasicAuthorization BasicAuthorization;
+
+        private UserManager<BlazorCloudUser> _userManager;
 
         /// <summary>
         /// Returns a list of FileBase objects which contain the name and their corresponding path
@@ -36,9 +39,10 @@ namespace BlazorCloud.Controller
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [Route("fileNames/{path}")]
         public async Task<ActionResult<List<FileBase>>> GetFileNamesAsync(string path)
         {
-            if (!(await _basicAuthorization.BasicAuthIsValid(HttpContext)))
+            if (!(await BasicAuthorization.BasicAuthIsValid(HttpContext)))
             {
                 return Unauthorized();
             }
@@ -48,7 +52,7 @@ namespace BlazorCloud.Controller
                 var fileNames = await _fileAndDirectoryService.GetListOfFilesFromPathAsync(path);
                 return Ok(fileNames);
             }
-            catch (Exception e)
+            catch
             {
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
