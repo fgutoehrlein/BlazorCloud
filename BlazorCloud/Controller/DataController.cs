@@ -19,17 +19,15 @@ namespace BlazorCloud.Controller
     [ApiController]
     public class DataController : ControllerBase
     {
-        public DataController(FileAndDirectoryService fileAndDirectoryService, UserManager<BlazorCloudUser> userManager)
+        public DataController(FileAndDirectoryService fileAndDirectoryService, IBasicAuthorization basicAuthorization)
         {
             _fileAndDirectoryService = fileAndDirectoryService;
-            _userManager = userManager;
-            BasicAuthorization = new BasicAuthorization(userManager);
+            _basicAuthorization = basicAuthorization;
         }
         public FileAndDirectoryService _fileAndDirectoryService { get; set; }
 
-        private BasicAuthorization BasicAuthorization;
+        private readonly IBasicAuthorization _basicAuthorization;
 
-        private UserManager<BlazorCloudUser> _userManager;
 
         /// <summary>
         /// Returns a list of FileBase objects which contain the name and their corresponding path
@@ -42,7 +40,7 @@ namespace BlazorCloud.Controller
         [Route("fileNames/{path}")]
         public async Task<ActionResult<List<FileBase>>> GetFileNamesAsync(string path)
         {
-            if (!(await BasicAuthorization.BasicAuthIsValid(HttpContext)))
+            if (!(await _basicAuthorization.BasicAuthIsValid(HttpContext)))
             {
                 return Unauthorized();
             }

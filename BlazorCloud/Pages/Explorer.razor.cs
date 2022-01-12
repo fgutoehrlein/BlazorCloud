@@ -14,6 +14,7 @@ using BlazorCloud.Data;
 using Microsoft.AspNetCore.Components.Forms;
 using BlazorCloudCore.Logic.Services;
 using Microsoft.AspNetCore.Identity;
+using BlazorCloud.Areas.Authorization;
 
 namespace BlazorCloud.Pages
 {

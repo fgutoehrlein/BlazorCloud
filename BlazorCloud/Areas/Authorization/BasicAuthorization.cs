@@ -1,7 +1,10 @@
 ﻿using BlazorCloud.Areas.Identity.Data;
+using BlazorCloud.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +15,24 @@ namespace BlazorCloud.Areas.Authorization
 {
     public class BasicAuthorization : IBasicAuthorization
     {
-        public UserManager<BlazorCloudUser> _userManager;
-        public BasicAuthorization(UserManager<BlazorCloudUser> userManager)
+        private readonly UserManager<BlazorCloudUser> BasicAuthUserManager;
+        public BasicAuthorization()
         {
-            _userManager = userManager;
+            IConfigurationRoot configurationRoot;
+
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().SetBasePath(Environment.CurrentDirectory)
+            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            configurationRoot = configurationBuilder.Build();
+
+            string connectionString = ConfigurationExtensions.GetConnectionString(configurationRoot, "BlazorCloudContextConnection");
+
+            var optionsBuilder = new DbContextOptionsBuilder<BlazorCloudContext>();
+            optionsBuilder.UseSqlite(connectionString);
+            var dbContext = new BlazorCloudContext(optionsBuilder.Options);
+
+            IUserStore<BlazorCloudUser> store = new UserStore<BlazorCloudUser>(dbContext);
+            BasicAuthUserManager = new UserManager<BlazorCloudUser>(store, null, new PasswordHasher<BlazorCloudUser>(), null, null, null, null, null, null);
         }
         /// <summary>
         /// Checks if the the given Basic Auth in the HttpContext is valid
@@ -38,12 +55,12 @@ namespace BlazorCloud.Areas.Authorization
             var password = usernamePassword.Substring(seperatorIndex + 1);
 
 
-            var blazorCloudUser = await _userManager.Users.SingleOrDefaultAsync(user => user.UserName == username);
+            var blazorCloudUser = await BasicAuthUserManager.Users.SingleOrDefaultAsync(user => user.UserName == username);
             if (blazorCloudUser == null)
             {
                 return false;
             }
-            var passwordVerificationResult = _userManager.PasswordHasher.VerifyHashedPassword(blazorCloudUser, blazorCloudUser.PasswordHash, password);
+            var passwordVerificationResult = BasicAuthUserManager.PasswordHasher.VerifyHashedPassword(blazorCloudUser, blazorCloudUser.PasswordHash, password);
             if (passwordVerificationResult == PasswordVerificationResult.Failed)
             {
                 return false;

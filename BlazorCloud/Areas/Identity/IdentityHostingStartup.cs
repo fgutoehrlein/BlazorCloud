@@ -36,6 +36,7 @@ namespace BlazorCloud.Areas.Identity
                 });
                 services.AddDefaultIdentity<BlazorCloudUser>(options => options.SignIn.RequireConfirmedAccount = true)
                     .AddEntityFrameworkStores<BlazorCloudContext>();
+                services.TryAddSingleton<IBasicAuthorization, BasicAuthorization>();
             });
         }
     }
