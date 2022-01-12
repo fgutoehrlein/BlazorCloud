@@ -13,6 +13,10 @@ using System.Threading.Tasks;
 
 namespace BlazorCloud.Areas.Authorization
 {
+    /// <summary>
+    /// Class that holds logic to handle basic authentication requests.
+    /// Primarily used as a injectable service. It holds its own UserManager instance.
+    /// </summary>
     public class BasicAuthorization : IBasicAuthorization
     {
         private readonly UserManager<BlazorCloudUser> BasicAuthUserManager;
