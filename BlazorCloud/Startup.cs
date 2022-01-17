@@ -21,6 +21,7 @@ using BlazorCloudCore.Models.Events;
 using BlazorCloudCore.Logic.Services;
 using BlazorCloud.Areas.Authorization;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using BlazorCloud.Areas.Identity.Data;
 
 namespace BlazorCloud
 {
@@ -50,6 +51,7 @@ namespace BlazorCloud
 
             services.TryAddScoped<UserSessionService>();
             services.AddSwaggerGen();
+            SeedRoles(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,6 +90,29 @@ namespace BlazorCloud
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+            SeedAdminUser();
+        }
+        private void SeedRoles(IServiceCollection services)
+        {
+            var serviceProvider = services.BuildServiceProvider();
+            //initializing custom roles 
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            string[] roleNames = { IdentityRoles.Admin, IdentityRoles.Manager, IdentityRoles.Member };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = RoleManager.RoleExistsAsync(roleName).Result;
+                if (!roleExist)
+                {
+                    //create the roles and seed them to the database: Question 1
+                    roleResult = RoleManager.CreateAsync(new IdentityRole(roleName)).Result;
+                }
+            }
+        }
+        private void SeedAdminUser()
+        {
+            _ = new SytemAdminUser().SeedData();
         }
     }
 }
